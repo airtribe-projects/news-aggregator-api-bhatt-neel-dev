@@ -1,17 +1,16 @@
 const express = require('express');
+const userRoutes = require('./src/routes/userRoutes');
+const newsRoutes = require('./src/routes/newsRoutes');
+const errorHandler = require('./src/middlewares/errorHandler');
+
 const app = express();
-const port = 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.listen(port, (err) => {
-    if (err) {
-        return console.log('Something bad happened', err);
-    }
-    console.log(`Server is listening on ${port}`);
-});
+app.use('/users', userRoutes);
+app.use('/news', newsRoutes);
 
-
+app.use(errorHandler);
 
 module.exports = app;
